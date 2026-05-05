@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: sunaina283/backend:latest
+        ports:
+        - containerPort: 8080
+        env: 
+        - name: MONGO_CONN_STR
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: MONGO_CONN_STR
+
+              
