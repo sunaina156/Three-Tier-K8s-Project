@@ -17,7 +17,7 @@ spec:
       - name: frontend
         image: sunaina283/frontend:latest
         ports:
-        - containerPort: 80
+        - containerPort: 3000
         resources:
           requests:
             cpu: 100m
