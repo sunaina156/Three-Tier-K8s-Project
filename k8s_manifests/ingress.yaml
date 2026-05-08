@@ -4,9 +4,9 @@ kind: Ingress
 metadata:
   name: three-tier-ingress
   namespace: three-tier
-
+  
 spec:
-  infressClassName: nginx
+  ingressClassName: nginx
   rules:
   - http:
       paths:
@@ -26,5 +26,4 @@ spec:
               name: backend-service
               port:
                 number: 8080 
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  
