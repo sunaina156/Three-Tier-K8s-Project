@@ -27,4 +27,4 @@ spec:
             memory: 512Mi
         env: 
           - name: REACT_APP_BACKEND_URL
-            value: "http://backend:8080"
+            value: "http://backend-service:8080"
