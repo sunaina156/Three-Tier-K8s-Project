@@ -37,5 +37,13 @@ spec:
               name: mongo-secret
               key: password
         
+        volumeMounts:
+        - name: mongo-storage
+          mountPath: /data/db    #MongoDB stores data in /data/db internally, so we mount the volume there
+      
+      volumes:     # connects pvc to pod
+      - name: mongo-storage
+        persistentVolumeClaim:
+          claimName: mongo-pvc
 
         
