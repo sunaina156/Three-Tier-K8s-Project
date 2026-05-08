@@ -4,6 +4,8 @@ kind: Ingress
 metadata:
   name: three-tier-ingress
   namespace: three-tier
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
   
 spec:
   ingressClassName: nginx
