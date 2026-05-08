@@ -1,0 +1,53 @@
+name: Three Tier CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Build Backend Image
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest -f k8s_manifests/backend/Dockerfile .
+    
+    - name: Push Backend Image
+      run: |
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
+
+  
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1  
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Build Frontend Image
+      run: |    
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest -f k8s_manifests/frontend/Dockerfile .
+
+    - name: Push Frontend Image
+      run: |
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest 
+
+        
