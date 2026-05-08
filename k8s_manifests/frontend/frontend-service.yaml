@@ -4,10 +4,10 @@ metadata:
   name: frontend-service
   namespace: three-tier
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: frontend
   ports:
   - port: 80
     targetPort: 3000
-    nodePort: 30007
+    
