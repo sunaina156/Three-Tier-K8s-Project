@@ -344,13 +344,44 @@ kubectl logs deployment/backend -n three-tier
 ---
 ![alt text](image-4.png)
 
+--
+![alt text](image-5.png)
 
-# Acess Application 
-http://EC2-Public-IP:8080   ----> frontend
-http://EC2-Public-IP:8080/api  ----> backend
+---
+
+# ⚠️ Important Note: Accessing Ingress in KIND Cluster
+
+When using KIND (Kubernetes IN Docker) on an AWS EC2 instance, the Ingress controller service of type LoadBalancer will remain in <pending> state.
+
+This happens because KIND does not integrate with cloud providers like AWS to provision external load balancers.
+
+## Why LoadBalancer does not work
+KIND runs inside Docker containers
+No native cloud LoadBalancer support
+Therefore, EXTERNAL-IP stays <pending>
+
+## Solution Used in This Project
+
+To expose the application externally, kubectl port-forwarding is used.
+``` bash
+kubectl port-forward svc/ingress-nginx-controller 8080:80 -n ingress-nginx --address 0.0.0.0
+```
+
+## Application Access URLs
+
+After port-forwarding:
+
+Frontend
+http://<EC2-PUBLIC-IP>:8080/
+Backend API
+http://<EC2-PUBLIC-IP>:8080/api/tasks
+
+
 ## Application UI
 
 ![alt text](image-2.png)
+
+
 
 ---
 
