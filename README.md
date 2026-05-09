@@ -52,18 +52,17 @@ The application is containerized using Docker and deployed on Kubernetes using d
 
 # Kubernetes Components Used
 
-| Kubernetes Resource | Purpose |
-|---------------------|---------|
-| Namespace | Isolates application resources |
-| Deployment | Manages pod lifecycle and scaling |
-| Service | Enables internal communication |
-| ConfigMap | Stores non-sensitive configuration |
-| Secret | Stores sensitive credentials securely |
-| Ingress | Exposes services externally |
-| PersistentVolume | Provides persistent database storage |
-| PersistentVolumeClaim | Requests storage for MongoDB |
-| Liveness Probe | Detects unhealthy containers |
-| Readiness Probe | Controls traffic routing to healthy pods |
+ Kubernetes Resource                 Purpose 
+ Namespace                    Isolates application resources 
+ Deployment                   Manages pod lifecycle and scaling
+ Service                      Enables internal communication 
+ ConfigMap                    Stores non-sensitive configuration 
+ Secret                       Stores sensitive credentials securely 
+ Ingress                      Exposes services externally 
+ PersistentVolume             Provides persistent database storage 
+ PersistentVolumeClaim        Requests storage for MongoDB 
+ Liveness Probe               Detects unhealthy containers 
+ Readiness Probe              Controls traffic routing to healthy pods 
 
 ---
 
