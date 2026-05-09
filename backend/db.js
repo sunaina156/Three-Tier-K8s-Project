@@ -2,24 +2,30 @@ const mongoose = require("mongoose");
 
 module.exports = async () => {
     try {
+
+        // Read credentials from Kubernetes Secrets (env variables)
+        const username = process.env.MONGO_USERNAME;
+        const password = process.env.MONGO_PASSWORD;
+
+        // MongoDB service inside cluster
+        const host = process.env.MONGO_HOST || "mongo-service";
+        const dbName = process.env.MONGO_DB || "todo";
+
+        // Build secure MongoDB connection string
+        const mongoURI =
+            `mongodb://${username}:${password}@${host}:27017/${dbName}?authSource=admin`;
+
+        // Mongoose connection options
         const connectionParams = {
-            // user: process.env.MONGO_USERNAME,
-            // pass: process.env.MONGO_PASSWORD,
             useNewUrlParser: true,
-            // useCreateIndex: true,
             useUnifiedTopology: true,
         };
-        const useDBAuth = process.env.USE_DB_AUTH || false;
-        if(useDBAuth){
-            connectionParams.user = process.env.MONGO_USERNAME;
-            connectionParams.pass = process.env.MONGO_PASSWORD;
-        }
-        await mongoose.connect(
-           process.env.MONGO_CONN_STR,
-           connectionParams
-        );
-        console.log("Connected to database.");
+
+        await mongoose.connect(mongoURI, connectionParams);
+
+        console.log("✅ Connected to database successfully.");
+
     } catch (error) {
-        console.log("Could not connect to database.", error);
+        console.log("❌ Could not connect to database.", error);
     }
 };
